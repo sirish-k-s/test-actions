@@ -1,0 +1,45 @@
+name: 3 diff jobs
+on: push
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: install dependencies
+          run: npm ci
+        - name: run lint
+          run: npm run lint
+    
+    test:
+        needs: lint
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: install dependencies
+          run: npm ci
+        - name: run test
+          run: npm test
+    
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: install dependencies
+          run: npm ci
+        - name: run build
+          run: npm run build
+    
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: install dependencies
+          run: npm ci
+        - name: run deploy
+          run: echo "Deploying..."

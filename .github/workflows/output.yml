@@ -1,0 +1,8 @@
+name: listens to issue
+on: issues
+jobs:
+  output:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display issue
+        run: echo "${{ github.event.issue }}"
